@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      
+      // 🏗️ FSD АРХИТЕКТУРА (Feature-Sliced Design)
+      // Слои FSD (в порядке от верхнего к нижнему):
+      "@/app/*": ["./app/*"],           // Инициализация, роутинг, провайдеры, store
+      "@/pages/*": ["./pages/*"],       // Страницы приложения
+      "@/widgets/*": ["./widgets/*"],   // Комплексные UI блоки
+      "@/features/*": ["./features/*"], // Бизнес-фичи
+      "@/entities/*": ["./entities/*"], // Бизнес-сущности
+      "@/shared/*": ["./shared/*"],     // Переиспользуемые модули
+      
+      // 🔧 СПЕЦИАЛЬНЫЕ ПАПКИ (вне FSD, используются как инфраструктура)
+      "@/components/ui/*": ["./app/components/ui/*"],       // ⚠️ Shadcn UI - САМЫЙ НИЖНИЙ слой (ниже shared, защищено Figma)
+      "@/components/figma/*": ["./app/components/figma/*"]  // ⚠️ Figma утилиты (защищено)
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход по ссылке</title>
+  <!--
+    ═══════════════════════════════════════════════════════════════════
+    ✨ EMAIL ШАБЛОН: Magic Link (вход по ссылке без пароля)
+    ═══════════════════════════════════════════════════════════════════
+    
+    Использование:
+    1. Скопируйте весь HTML-код этого файла
+    2. Откройте Supabase Dashboard → Authentication → Email Templates
+    3. Выберите "Magic Link"
+    4. Вставьте код в поле шаблона
+    5. Нажмите "Save"
+    
+    Доступные переменные Supabase:
+    - {{ .ConfirmationURL }} - магическая ссылка для входа
+    - {{ .Token }}           - токен входа
+    - {{ .SiteURL }}         - URL вашего сайта
+    - {{ .Email }}           - email пользователя
+    
+    Цветовая схема (из theme.css):
+    - Indigo: #6366F1
+    - Violet: #8b5cf6
+    ═══════════════════════════════════════════════════════════════════
+  -->
+</head>
+<body style="margin: 0; padding: 0; background-color: #f9fafb; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;">
+  
+  <!-- Контейнер письма -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f9fafb; padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        
+        <!-- Основная карточка письма -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+          
+          <!-- Заголовок с градиентом -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #8b5cf6 0%, #6366F1 100%); padding: 40px 40px 32px 40px; border-radius: 10px 10px 0 0; text-align: center;">
+              
+              <!-- Иконка молнии -->
+              <div style="width: 72px; height: 72px; margin: 0 auto 16px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                <span style="font-size: 36px; line-height: 72px;">⚡</span>
+              </div>
+              
+              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; line-height: 1.3;">
+                Быстрый вход
+              </h1>
+              
+              <p style="margin: 8px 0 0 0; color: rgba(255, 255, 255, 0.9); font-size: 15px;">
+                Войдите одним кликом без пароля
+              </p>
+              
+            </td>
+          </tr>
+          
+          <!-- Основной контент -->
+          <tr>
+            <td style="padding: 40px;">
+              
+              <p style="margin: 0 0 16px 0; color: #111827; font-size: 16px; line-height: 1.6;">
+                Здравствуйте!
+              </p>
+              
+              <p style="margin: 0 0 24px 0; color: #4b5563; font-size: 16px; line-height: 1.6;">
+                Кто-то запросил вход в учетную запись <strong style="color: #111827;">{{ .Email }}</strong>. Нажмите на кнопку ниже, чтобы войти — пароль не требуется! 🎉
+              </p>
+              
+              <!-- Кнопка входа -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td align="center" style="padding: 16px 0;">
+                    <a href="{{ .ConfirmationURL }}" 
+                       style="display: inline-block; background: linear-gradient(135deg, #8b5cf6, #6366F1); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 10px; font-size: 16px; font-weight: 500; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);">
+                      ✨ Войти в приложение
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Дополнительная информация -->
+              <p style="margin: 24px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                Или скопируйте эту ссылку в браузер:
+              </p>
+              
+              <p style="margin: 8px 0 0 0; padding: 12px; background-color: #f3f4f6; border-radius: 8px; word-break: break-all; font-size: 13px; color: #4b5563;">
+                <a href="{{ .ConfirmationURL }}" style="color: #6366F1; text-decoration: none;">{{ .ConfirmationURL }}</a>
+              </p>
+              
+              <!-- Информация о времени действия -->
+              <p style="margin: 24px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.6; text-align: center;">
+                ⏱️ Ссылка действительна в течение <strong>1 часа</strong>
+              </p>
+              
+              <!-- Информационная карточка -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 32px; background-color: #f0f9ff; border-left: 4px solid #06b6d4; border-radius: 8px;">
+                <tr>
+                  <td style="padding: 16px;">
+                    <p style="margin: 0 0 8px 0; color: #0c4a6e; font-size: 14px; font-weight: 600;">
+                      💡 Что такое Magic Link?
+                    </p>
+                    <p style="margin: 0; color: #0c4a6e; font-size: 14px; line-height: 1.5;">
+                      Это безопасный способ входа без необходимости запоминать пароль. Просто кликните по ссылке — и вы в системе!
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              
+              <!-- Предупреждение о безопасности -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 16px; background-color: #fef2f2; border-left: 4px solid #dc2626; border-radius: 8px;">
+                <tr>
+                  <td style="padding: 16px;">
+                    <p style="margin: 0 0 8px 0; color: #7f1d1d; font-size: 14px; font-weight: 600;">
+                      🔒 Безопасность
+                    </p>
+                    <p style="margin: 0; color: #7f1d1d; font-size: 14px; line-height: 1.5;">
+                      Если это были не вы, просто проигнорируйте это письмо. Никто не сможет войти в вашу учетную запись без доступа к этому письму.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              
+            </td>
+          </tr>
+          
+          <!-- Футер -->
+          <tr>
+            <td style="padding: 24px 40px; background-color: #f9fafb; border-radius: 0 0 10px 10px; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; color: #9ca3af; font-size: 13px; line-height: 1.5; text-align: center;">
+                По соображениям безопасности никому не пересылайте это письмо.
+              </p>
+              <p style="margin: 8px 0 0 0; color: #9ca3af; font-size: 13px; line-height: 1.5; text-align: center;">
+                © {{ formatDate now "2006" }} Habit Tracker. Все права защищены.
+              </p>
+            </td>
+          </tr>
+          
+        </table>
+        
+      </td>
+    </tr>
+  </table>
+  
+</body>
+</html>
