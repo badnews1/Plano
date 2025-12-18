@@ -88,16 +88,18 @@ export class NotificationService {
 
   /**
    * Показ уведомления
+   * 
+   * @returns Cleanup функция для очистки таймера и закрытия уведомления
    */
-  static async show(config: NotificationConfig): Promise<void> {
+  static async show(config: NotificationConfig): Promise<() => void> {
     if (!this.isSupported()) {
-      // API не поддерживается - тихо выходим
-      return;
+      // API не поддерживается - возвращаем пустую cleanup функцию
+      return () => {};
     }
 
     if (Notification.permission !== 'granted') {
-      // Разрешение не предоставлено - тихо выходим (это нормальная ситуация)
-      return;
+      // Разрешение не предоставлено - возвращаем пустую cleanup функцию
+      return () => {};
     }
 
     try {
@@ -117,9 +119,15 @@ export class NotificationService {
       };
 
       // Автоматическое закрытие через 10 секунд
-      setTimeout(() => notification.close(), 10000);
+      const timeoutId = setTimeout(() => notification.close(), 10000);
 
       console.log(`[NotificationService] Показано уведомление: ${config.title}`);
+      
+      // Возвращаем cleanup функцию для очистки таймера
+      return () => {
+        clearTimeout(timeoutId);
+        notification.close();
+      };
     } catch (error) {
       console.error('[NotificationService] Ошибка показа уведомления:', error);
       throw error;

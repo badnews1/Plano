@@ -28,7 +28,7 @@ export const createVacationSlice: StateCreator<VacationSlice> = (set) => ({
         ...state.vacationPeriods,
         {
           ...period,
-          id: `vacation-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `vacation-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
           createdAt: new Date().toISOString(),
         },
       ],

@@ -13,11 +13,12 @@
  * @created 17 декабря 2025
  * @updated 17 декабря 2025 - добавлен offline-режим и очередь операций
  * @updated 17 декабря 2025 - добавлено разрешение конфликтов
+ * @updated 18 декабря 2025 - использование generic QueueOperation для соблюдения FSD
  */
 
 import { serverFetch } from '@/shared/lib/supabase/client';
 import { addToQueue, getQueue, removeFromQueue, clearQueue } from '@/shared/lib/offline';
-import { syncHabits, resolveHabitConflict } from '@/shared/lib/sync';
+import { syncHabits, resolveHabitConflict } from '../lib/conflict-resolution';
 import type { Habit } from '../model/types';
 import type { QueueOperation } from '@/shared/lib/offline';
 
@@ -77,10 +78,10 @@ export async function createHabitOnServer(habit: Habit): Promise<boolean> {
     
     // Добавляем в offline очередь
     console.log('📵 Нет соединения, добавляем операцию в очередь');
-    addToQueue({
+    addToQueue<Habit>({
       type: 'CREATE',
-      habitId: habit.id,
-      habit,
+      entityId: habit.id,
+      entity: habit,
     });
     
     return false;
@@ -115,9 +116,9 @@ export async function updateHabitOnServer(habitId: string, updates: Partial<Habi
     
     // Добавляем в offline очередь
     console.log('📵 Нет соединения, добавляем операцию в очередь');
-    addToQueue({
+    addToQueue<Habit>({
       type: 'UPDATE',
-      habitId,
+      entityId: habitId,
       updates,
     });
     
@@ -149,9 +150,9 @@ export async function deleteHabitOnServer(habitId: string): Promise<boolean> {
     
     // Добавляем в offline очередь
     console.log('📵 Нет соединения, добавляем операцию в очередь');
-    addToQueue({
+    addToQueue<Habit>({
       type: 'DELETE',
-      habitId,
+      entityId: habitId,
     });
     
     return false;
@@ -192,7 +193,7 @@ export async function syncAllHabitsToServer(habits: Habit[]): Promise<boolean> {
  * Вызывается при восстановлении соединения
  */
 export async function processOfflineQueue(): Promise<void> {
-  const queue = getQueue();
+  const queue = getQueue<Habit>();
   
   if (queue.length === 0) {
     console.log('[Sync] Очередь пуста, синхронизация не требуется');
@@ -210,19 +211,19 @@ export async function processOfflineQueue(): Promise<void> {
     try {
       switch (operation.type) {
         case 'CREATE':
-          if (operation.habit) {
-            success = await createHabitOnServer(operation.habit);
+          if (operation.entity) {
+            success = await createHabitOnServer(operation.entity);
           }
           break;
         
         case 'UPDATE':
           if (operation.updates) {
-            success = await updateHabitOnServer(operation.habitId, operation.updates);
+            success = await updateHabitOnServer(operation.entityId, operation.updates);
           }
           break;
         
         case 'DELETE':
-          success = await deleteHabitOnServer(operation.habitId);
+          success = await deleteHabitOnServer(operation.entityId);
           break;
       }
       

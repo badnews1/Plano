@@ -5,7 +5,8 @@
  * @created 17 декабря 2025
  */
 
-import type { Language } from '@/app/store/slices/language';
+import type { Language } from '@/shared/types/language';
+import { SUPPORTED_LANGUAGES } from '@/shared/types/language';
 
 /**
  * Определяет предпочитаемый язык из настроек браузера
@@ -23,9 +24,6 @@ import type { Language } from '@/app/store/slices/language';
  * @returns Код языка ('en' | 'ru')
  */
 export function detectBrowserLanguage(): Language {
-  // Список поддерживаемых языков
-  const supportedLanguages: Language[] = ['en', 'ru'];
-  
   // Функция для извлечения кода языка из локали (например, 'ru-RU' -> 'ru')
   const extractLanguageCode = (locale: string): string => {
     return locale.split('-')[0].toLowerCase();
@@ -34,7 +32,7 @@ export function detectBrowserLanguage(): Language {
   // Проверяем navigator.language (основной язык)
   if (typeof navigator !== 'undefined' && navigator.language) {
     const languageCode = extractLanguageCode(navigator.language);
-    if (supportedLanguages.includes(languageCode as Language)) {
+    if (SUPPORTED_LANGUAGES.includes(languageCode as Language)) {
       return languageCode as Language;
     }
   }
@@ -43,7 +41,7 @@ export function detectBrowserLanguage(): Language {
   if (typeof navigator !== 'undefined' && navigator.languages && navigator.languages.length > 0) {
     for (const locale of navigator.languages) {
       const languageCode = extractLanguageCode(locale);
-      if (supportedLanguages.includes(languageCode as Language)) {
+      if (SUPPORTED_LANGUAGES.includes(languageCode as Language)) {
         return languageCode as Language;
       }
     }

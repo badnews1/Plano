@@ -87,11 +87,13 @@ export const NotificationPermissionBanner: React.FC = () => {
     if (permission === 'granted') {
       setShow(false);
       // Показываем тестовое уведомление через общий сервис
-      await NotificationService.show({
+      const cleanup = await NotificationService.show({
         title: t('notifications.granted'),
         body: t('notifications.permission.description'),
         icon: '/favicon.ico',
       });
+      // Cleanup автоматически вызовется когда уведомление закроется
+      // В данном случае не нужно вызывать cleanup вручную, т.к. это одноразовое тестовое уведомление
     } else if (permission === 'denied') {
       setShow(false);
       localStorage.setItem('notificationBannerDismissed', 'true');

@@ -10,3 +10,7 @@ export type {
   FilterSection,
   FilterDropdownConfig,
 } from './ui';
+
+// Типы языков
+export type { Language } from './language';
+export { SUPPORTED_LANGUAGES } from './language';

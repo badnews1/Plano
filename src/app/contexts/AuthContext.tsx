@@ -24,6 +24,7 @@ import { supabaseClient, serverFetch } from '../../shared/lib/supabase/client';
 import { useHabitsStore } from '../store';
 import { getInitialLanguage } from '@/shared/lib/i18n';
 import { useTheme } from '@/features/theme-switcher';
+import type { Language } from '@/shared/types/language';
 
 // ==================== TYPES ====================
 
@@ -33,7 +34,7 @@ interface User {
   name?: string;
   role?: 'user' | 'admin'; // Роль пользователя
   avatar_url?: string; // URL аватара
-  preferredLanguage?: 'en' | 'ru'; // Предпочитаемый язык пользователя
+  preferredLanguage?: Language; // Предпочитаемый язык пользователя
 }
 
 interface AuthContextType {
@@ -47,7 +48,7 @@ interface AuthContextType {
   logout: () => void;
   updateProfile: (name: string) => Promise<void>; // Новая функция
   changePassword: (currentPassword: string, newPassword: string) => Promise<void>; // Изменение пароля
-  updateLanguage: (language: 'en' | 'ru') => Promise<void>; // Обновление языка
+  updateLanguage: (language: Language) => Promise<void>; // Обновление языка
   updateEmail: (newEmail: string) => Promise<void>; // Изменение email
   deleteAccount: () => Promise<void>; // Удаление аккаунта
 }
@@ -282,7 +283,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   // Update Language
-  const updateLanguage = async (language: 'en' | 'ru'): Promise<void> => {
+  const updateLanguage = async (language: Language): Promise<void> => {
     setIsLoading(true);
     
     try {

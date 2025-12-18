@@ -23,5 +23,8 @@ export * from './units';
 // Система логирования
 export * from './logger';
 
+// Утилиты для работы с кэшем
+export * from './cache';
+
 // Утилиты для работы с i18n
 export * from './i18n';

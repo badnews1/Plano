@@ -11,7 +11,7 @@ import {
   Snowflake,
   CloudRain,
   Palmtree,
-} from 'lucide-react';
+} from '@/shared/assets/icons/content';
 
 /**
  * Единый источник всех иконок для режима отдыха

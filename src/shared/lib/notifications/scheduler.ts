@@ -1,20 +1,4 @@
 /**
- * Централизованный планировщик уведомлений
- * 
- * Координирует уведомления от всех модулей (habits, tasks, finance) и 
- * предотвращает спам, группируя уведомления на одно и то же время.
- */
-
-import { NotificationService } from './notification-api';
-import type { 
-  ScheduledReminder, 
-  NotificationGroupingConfig,
-  SchedulerStats,
-  ReminderType 
-} from './types';
-import { i18n } from '@/shared/config';
-
-/**
  * Класс централизованного планировщика уведомлений
  * 
  * Singleton - используется единственный экземпляр для всего приложения
@@ -25,6 +9,9 @@ class NotificationSchedulerClass {
   
   /** Активные таймеры для каждого временного слота */
   private timers: Map<string, NodeJS.Timeout> = new Map();
+  
+  /** Cleanup функции для активных уведомлений */
+  private cleanupFunctions: Map<string, (() => void)[]> = new Map();
   
   /** Конфигурация группировки */
   private config: NotificationGroupingConfig = {
@@ -234,13 +221,19 @@ class NotificationSchedulerClass {
    */
   private async showSingleNotification(reminder: ScheduledReminder): Promise<void> {
     try {
-      await NotificationService.show({
+      const cleanup = await NotificationService.show({
         title: reminder.title,
         body: reminder.body,
         tag: reminder.id,
         icon: reminder.icon,
         data: reminder.data
       });
+      if (cleanup) {
+        if (!this.cleanupFunctions.has(reminder.id)) {
+          this.cleanupFunctions.set(reminder.id, []);
+        }
+        this.cleanupFunctions.get(reminder.id)!.push(cleanup);
+      }
     } catch (error) {
       console.error(`[NotificationScheduler] Ошибка показа уведомления ${reminder.id}:`, error);
     }
@@ -284,7 +277,7 @@ class NotificationSchedulerClass {
     });
     
     try {
-      await NotificationService.show({
+      const cleanup = await NotificationService.show({
         title,
         body: body.trim(),
         tag: 'grouped-notification',
@@ -293,6 +286,12 @@ class NotificationSchedulerClass {
           reminders: reminders.map(r => r.data) 
         }
       });
+      if (cleanup) {
+        if (!this.cleanupFunctions.has('grouped-notification')) {
+          this.cleanupFunctions.set('grouped-notification', []);
+        }
+        this.cleanupFunctions.get('grouped-notification')!.push(cleanup);
+      }
     } catch (error) {
       console.error('[NotificationScheduler] Ошибка показа групповго уведомления:', error);
     }
@@ -386,6 +385,12 @@ class NotificationSchedulerClass {
     
     // Очищаем напоминания
     this.reminders.clear();
+    
+    // Вызываем cleanup функции
+    this.cleanupFunctions.forEach(cleanupList => {
+      cleanupList.forEach(cleanup => cleanup());
+    });
+    this.cleanupFunctions.clear();
     
     console.log('[NotificationScheduler] Очищено');
   }

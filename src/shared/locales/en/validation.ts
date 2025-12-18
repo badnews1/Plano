@@ -3,7 +3,23 @@ export default {
   habitName: {
     required: "Habit name is required",
     minLength: "Habit name must be at least {{min}} characters",
-    maxLength: "Habit name must be at most {{max}} characters"
+    maxLength: "Habit name must be at most {{max}} characters",
+    tooShort: "Habit name cannot be empty",
+    tooLong: "Habit name must be at most {{max}} characters"
+  },
+  habitDescription: {
+    tooLong: "Description must be at most {{max}} characters"
+  },
+  tagName: {
+    tooShort: "Tag name cannot be empty",
+    tooLong: "Tag name must be at most {{max}} characters"
+  },
+  vacationReason: {
+    tooShort: "Vacation reason cannot be empty",
+    tooLong: "Vacation reason must be at most {{max}} characters"
+  },
+  dayNote: {
+    tooLong: "Note must be at most {{max}} characters"
   },
   target: {
     required: "Target value is required",

@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import type { Language } from '@/app/store/slices/language';
+import type { Language } from '@/shared/types/language';
 
 // Конфигурация языков с флагами и названиями
 const LANGUAGES = [

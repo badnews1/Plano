@@ -6,10 +6,14 @@
  * @updated 30 ноября 2025 - переименование из notifications в habit-notifications
  * @updated 30 ноября 2025 - переименование файла в scheduler.ts
  * @updated 10 декабря 2025 - добавлен reminder-filter для проверки напоминаний
+ * @updated 18 декабря 2025 - добавлен экспорт TranslateFunction
  */
 
 // Экспорт объекта планировщика (для компонентов)
 export { habitNotificationScheduler } from './scheduler';
+
+// Экспорт типов
+export type { TranslateFunction } from './scheduler';
 
 // Экспорт отдельных функций (для прямого использования)
 export {

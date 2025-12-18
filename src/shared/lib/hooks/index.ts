@@ -6,3 +6,4 @@
 
 export { useClickOutside } from './useClickOutside';
 export { useOnlineStatus } from './useOnlineStatus';
+export { useBreakpoint, useCurrentBreakpoint } from './useBreakpoint';

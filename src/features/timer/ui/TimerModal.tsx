@@ -34,7 +34,7 @@ import {
   Trash2,
   CirclePlay,
   CirclePause,
-  StopCircle,
+  CircleStop,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -938,7 +938,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                       }}
                     >
                       <div className="flex items-center gap-3">
-                        <StopCircle className="size-3" />
+                        <CircleStop className="size-3" />
                         <span style={{ fontSize: '14px', fontWeight: '400' }}>{t('timer:actions.finish')}</span>
                       </div>
                     </Button>
@@ -971,7 +971,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                       }}
                     >
                       <div className="flex items-center gap-3">
-                        <StopCircle className="size-3" />
+                        <CircleStop className="size-3" />
                         <span style={{ fontSize: '14px', fontWeight: '400' }}>{t('timer:actions.finish')}</span>
                       </div>
                     </Button>
@@ -1477,7 +1477,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                     }}
                   >
                     <div className="flex items-center gap-3">
-                      <StopCircle className="size-3" />
+                      <CircleStop className="size-3" />
                       <span style={{ fontSize: '14px', fontWeight: '400' }}>{t('timer:actions.stop')}</span>
                     </div>
                   </Button>
@@ -1510,7 +1510,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                     }}
                   >
                     <div className="flex items-center gap-3">
-                      <StopCircle className="size-3" />
+                      <CircleStop className="size-3" />
                       <span style={{ fontSize: '14px', fontWeight: '400' }}>{t('timer:actions.stop')}</span>
                     </div>
                   </Button>
@@ -1892,7 +1892,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <StopCircle className="size-3" />
+                    <CircleStop className="size-3" />
                     <span style={{ fontSize: '14px', fontWeight: '400' }}>{t('timer:actions.finish')}</span>
                   </div>
                 </Button>

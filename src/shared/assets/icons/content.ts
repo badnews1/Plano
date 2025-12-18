@@ -5,7 +5,47 @@
  * Лицензия: ISC (бесплатно для коммерческого использования)
  * 
  * Иконки разделены по категориям для удобства навигации
+ * Общие иконки (используемые и в content, и в system) импортируются из shared.ts
  */
+
+// Реэкспорт общих иконок
+export {
+  Target,
+  Timer,
+  Clock,
+  Calendar,
+  Heart,
+  Star,
+  Square,
+  Moon,
+  Sun,
+  Palette,
+  Languages,
+  Flame,
+  Zap,
+  Rocket,
+  Archive,
+  Package,
+  Tag,
+  Trash2,
+  Notebook,
+  FileText,
+  Mail,
+  Camera,
+  Gem,
+  Crown,
+  Angry,
+  Frown,
+  Meh,
+  Smile,
+  Laugh,
+  Coffee,
+  Palmtree,
+  Wifi,
+  AlertCircle,
+  X,
+  type LucideIcon,
+} from './shared';
 
 export {
   // ========================================
@@ -13,24 +53,24 @@ export {
   // ========================================
   Dumbbell, // Гантели
   Bike, // Велосипед
-  Heart, // Сердце
+  // Heart - из shared.ts
   FootprintsIcon as Footprints, // Следы
   Waves, // Волны (плавание)
-  Target, // Мишень
-  Timer, // Таймер
-  Flame, // Огонь (калории)
-  Zap, // Молния (энергия)
+  // Target - из shared.ts
+  // Timer - из shared.ts
+  // Flame - из shared.ts
+  // Zap - из shared.ts
 
   // ========================================
   // ЗДОРОВЬЕ И САМОЧУВСТВИЕ
   // ========================================
   BrainIcon as Brain, // Мозг (ментальное здоровье)
-  Moon, // Луна (сон)
+  // Moon - из shared.ts
   Pill, // Таблетки
   Syringe, // Шприц (медицина)
   HeartPulse, // Пульс
   Bed, // Кровать (сон)
-  Sun, // Солнце
+  // Sun - из shared.ts
   Microscope, // Микроскоп
 
   // ========================================
@@ -38,7 +78,7 @@ export {
   // ========================================
   Droplet, // Капля (вода)
   Apple, // Яблоко
-  Coffee, // Кофе
+  // Coffee - из shared.ts
   Utensils, // Столовые приборы
   Wine, // Вино
   Beer, // Пиво
@@ -56,30 +96,30 @@ export {
   GraduationCap, // Выпускная шапка
   Library, // Библиотека
   Podcast, // Подкаст
-  Languages, // Языки
-  Notebook, // Блокнот
+  // Languages - из shared.ts
+  // Notebook - из shared.ts
 
   // ========================================
   // РАБОТА И ПРОДУКТИВНОСТЬ
   // ========================================
   Briefcase, // Портфель
-  Clock, // Часы
+  // Clock - из shared.ts
   CheckCircle2, // Галочка в круге
   ListTodo, // Список задач
-  Calendar, // Календарь
+  // Calendar - из shared.ts
   LineChart, // График
   TrendingUp, // Рост
   Paperclip, // Скрепка
-  FileText, // Текстовый файл
+  // FileText - из shared.ts
   Folder, // Папка
-  Archive, // Архив
+  // Archive - из shared.ts
 
   // ========================================
   // ТВОРЧЕСТВО И ХОББИ
   // ========================================
-  Palette, // Палитра
+  // Palette - из shared.ts
   Music, // Музыка
-  Camera, // Камера
+  // Camera - из shared.ts
   Brush, // Кисть
   Mic, // Микрофон
   Film, // Фильм
@@ -109,14 +149,14 @@ export {
   UserPlus, // Добавить пользователя
   Phone, // Телефон
   Video, // Видео
-  Mail, // Почта
+  // Mail - из shared.ts
   Gift, // Подарок
 
   // ========================================
   // ДОМ И БЫТ
   // ========================================
   Home, // Дом
-  Trash2, // Корзина
+  // Trash2 - из shared.ts
   Lightbulb, // Лампочка
   Hammer, // Молоток
   Armchair, // Кресло
@@ -128,19 +168,19 @@ export {
   // ========================================
   // ЭМОЦИИ И НАСТРОЕНИЕ
   // ========================================
-  SmileIcon as Smile, // Улыбка
-  Laugh, // Смех
-  Meh, // Нейтральное
-  Frown, // Грусть
-  Angry, // Злость
-  Star, // Звезда
+  SmileIcon, // Улыбка (алиас, основной экспорт - Smile из shared.ts)
+  // Laugh - из shared.ts
+  // Meh - из shared.ts
+  // Frown - из shared.ts
+  // Angry - из shared.ts
+  // Star - из shared.ts
 
   // ========================================
   // КРАСОТА И УХОД
   // ========================================
   Eye, // Глаз
-  Gem, // Драгоценность
-  Crown, // Корона
+  // Gem - из shared.ts
+  // Crown - из shared.ts
 
   // ========================================
   // РАЗВЛЕЧЕНИЯ И ОТДЫХ
@@ -162,7 +202,7 @@ export {
   MapPin, // Метка на карте
   Map, // Карта
   Mountain, // Гора
-  Rocket, // Ракета
+  // Rocket - из shared.ts
   Truck, // Грузовик
 
   // ========================================
@@ -177,7 +217,7 @@ export {
   Bird, // Птица
   Fish, // Рыба
   Snowflake, // Снежинка
-  Palmtree, // Пальма
+  // Palmtree - из shared.ts
   Squirrel, // Белка
 
   // ========================================
@@ -186,7 +226,7 @@ export {
   Laptop, // Ноутбук
   Code, // Код
   Cpu, // Процессор
-  Wifi, // WiFi
+  // Wifi - из shared.ts
   Monitor, // Монитор
   Database, // База данных
 
@@ -202,8 +242,8 @@ export {
   // ========================================
   Cigarette, // Сигарета
   Ban, // Запрет
-  X, // Крестик
-  AlertCircle, // Предупреждение
+  // X - из shared.ts
+  // AlertCircle - из shared.ts
   XCircle, // Крестик в круге
 
   // ========================================
@@ -213,20 +253,15 @@ export {
   Cat, // Кошка
   ShoppingCart, // Корзина покупок
   Store, // Магазин
-  Tag, // Ярлык
-  Package, // Посылка
+  // Tag - из shared.ts
+  // Package - из shared.ts
   Box, // Коробка
   Umbrella, // Зонт
   Flag, // Флаг
-  SquareIcon as Square, // Квадрат
+  SquareIcon, // Квадрат (алиас, основной экспорт - Square из shared.ts)
   Hexagon, // Шестиугольник
   Diamond, // Ромб
   Pentagon, // Пятиугольник
   Triangle, // Треугольник
   Octagon, // Восьмиугольник
-
-  // ========================================
-  // ТИПЫ
-  // ========================================
-  type LucideIcon,
 } from 'lucide-react';

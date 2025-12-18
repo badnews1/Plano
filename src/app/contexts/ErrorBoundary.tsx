@@ -13,6 +13,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Loader2 } from '@/shared/assets/icons/system';
+import { clearCacheAndReload } from '@/shared/lib/cache';
 
 interface Props {
   children: ReactNode;
@@ -77,7 +78,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Попробуйте обновить страницу
             </p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => clearCacheAndReload()}
               className="px-4 py-2 bg-accent-primary-indigo text-white rounded-lg hover:opacity-90 transition-opacity"
             >
               Обновить страницу

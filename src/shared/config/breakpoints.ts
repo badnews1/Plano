@@ -60,12 +60,22 @@ export function getMediaQuery(breakpoint: BreakpointKey): string {
 }
 
 /**
- * Хук для проверки текущего breakpoint (опциональный хелпер)
- * Можно использовать с window.matchMedia()
+ * Утилита для проверки соответствия текущего breakpoint
+ * 
+ * ⚠️ Это НЕ React хук! Для использования в компонентах используйте useBreakpoint из @/shared/lib/hooks
+ * Эта функция выполняет одноразовую проверку без подписки на изменения.
+ * 
+ * @param breakpoint - Ключ breakpoint для проверки
+ * @returns true если текущая ширина окна >= указанного breakpoint
  * 
  * @example
  * ```typescript
- * const isTablet = useMediaQuery('md'); // >= 768px
+ * // Одноразовая проверка (не реактивная)
+ * const isTablet = matchesBreakpoint('md'); // >= 768px
+ * 
+ * // ✅ Для React компонентов используйте хук:
+ * import { useBreakpoint } from '@/shared/lib/hooks';
+ * const isTablet = useBreakpoint('md'); // Автоматически обновляется при resize
  * ```
  */
 export function matchesBreakpoint(breakpoint: BreakpointKey): boolean {

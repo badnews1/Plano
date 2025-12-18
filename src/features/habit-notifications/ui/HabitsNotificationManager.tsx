@@ -10,11 +10,13 @@
  * @created 22 ноября 2025 (мигрировано из /components/notifications/)
  * @updated 30 ноября 2025 - переименование из notifications в habit-notifications
  * @updated 30 ноября 2025 - удалена логика запроса разрешений (конфликт с баннером)
+ * @updated 18 декабря 2025 - передача функции перевода в scheduler для улучшения тестируемости
  */
 
 import React, { useEffect } from 'react';
 import type { Habit } from '@/entities/habit';
 import { habitNotificationScheduler } from '../lib';
+import { i18n } from '@/shared/config';
 
 interface HabitsNotificationManagerProps {
   /** Список привычек для планирования уведомлений */
@@ -49,7 +51,7 @@ export const HabitsNotificationManager: React.FC<HabitsNotificationManagerProps>
 
     // Планируем уведомления для всех привычек
     habits.forEach(habit => {
-      habitNotificationScheduler.schedule(habit);
+      habitNotificationScheduler.schedule(habit, i18n.t);
     });
 
     // Cleanup при размонтировании

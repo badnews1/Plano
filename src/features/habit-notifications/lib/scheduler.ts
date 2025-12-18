@@ -9,12 +9,17 @@
  * @updated 30 ноября 2025 - переименование файла в scheduler.ts
  * @updated 2 декабря 2025 - миграция на i18n для локализованных уведомлений
  * @updated 10 декабря 2025 - добавлена проверка shouldShow для учёта частоты и автопропусков
+ * @updated 18 декабря 2025 - улучшена тестируемость: функция перевода передается как параметр
  */
 
 import { NotificationScheduler } from '@/shared/lib/notifications';
 import type { Habit, Reminder } from '@/entities/habit';
-import { i18n } from '@/shared/config';
 import { shouldShowHabitReminderToday } from './reminder-filter';
+
+/**
+ * Тип функции перевода
+ */
+export type TranslateFunction = (key: string, options?: { habitName: string; defaultValue?: string }) => string;
 
 /**
  * Планирование всех напоминаний для привычки
@@ -22,6 +27,7 @@ import { shouldShowHabitReminderToday } from './reminder-filter';
  * Автоматически удаляет старые напоминания перед добавлением новых.
  * 
  * @param habit - Привычка с напоминаниями
+ * @param translate - Функция перевода
  * 
  * @example
  * ```typescript
@@ -35,10 +41,10 @@ import { shouldShowHabitReminderToday } from './reminder-filter';
  *   ]
  * };
  * 
- * scheduleHabitReminders(habit);
+ * scheduleHabitReminders(habit, i18n.t);
  * ```
  */
-export function scheduleHabitReminders(habit: Habit): void {
+export function scheduleHabitReminders(habit: Habit, translate: TranslateFunction): void {
   // Сначала удаляем все старые напоминания этой привычки
   unscheduleHabitReminders(habit.id);
   
@@ -51,7 +57,7 @@ export function scheduleHabitReminders(habit: Habit): void {
   habit.reminders
     .filter(reminder => reminder.enabled)
     .forEach(reminder => {
-      scheduleHabitReminder(habit, reminder);
+      scheduleHabitReminder(habit, reminder, translate);
     });
 }
 
@@ -60,12 +66,13 @@ export function scheduleHabitReminders(habit: Habit): void {
  * 
  * @param habit - Привычка
  * @param reminder - Конкретное напоминание
+ * @param translate - Функция перевода
  */
-export function scheduleHabitReminder(habit: Habit, reminder: Reminder): void {
+export function scheduleHabitReminder(habit: Habit, reminder: Reminder, translate: TranslateFunction): void {
   const reminderId = generateReminderId(habit.id, reminder.time);
   
   // Локализованный текст уведомления
-  const body = i18n.t('common:notifications.scheduler.habitReminder', { 
+  const body = translate('common:notifications.scheduler.habitReminder', { 
     habitName: habit.name,
     defaultValue: `Time to complete habit: ${habit.name}`
   });
@@ -218,6 +225,7 @@ export const habitNotificationScheduler = {
   /**
    * Запланировать напоминания для привычки
    * @param habit - Привычка с напоминаниями
+   * @param translate - Функция перевода
    */
   schedule: scheduleHabitReminders,
   

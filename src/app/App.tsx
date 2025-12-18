@@ -15,7 +15,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '@/app/i18n'; // Инициализация i18n
 import { AuthProvider, ErrorBoundary } from '@/app/contexts';
-import { AppRouter } from '@/app/router.tsx';
+import { AppRouter } from '@/app/router';
 import { HabitsNotificationManager } from '@/features/habit-notifications';
 import { NotificationPermissionBanner } from '@/features/notifications-permission';
 import { AppModals } from '@/app/providers';

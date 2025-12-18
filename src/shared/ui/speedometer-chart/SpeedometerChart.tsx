@@ -88,7 +88,7 @@ export function SpeedometerChart({
   const startAngle = (360 - arcAngle) / 2 + 90;
   
   // Уникальный ID для градиентов (чтобы несколько компонентов на странице работали)
-  const gradientId = `speedometer-gradient-${size}-${Math.random().toString(36).substr(2, 9)}`;
+  const gradientId = `speedometer-gradient-${size}-${Math.random().toString(36).slice(2, 11)}`;
 
   // Генерация точек по дуге
   const generateDots = (radiusOffset: number, count: number, isOuter: boolean = false) => {

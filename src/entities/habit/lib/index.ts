@@ -9,6 +9,7 @@
  * @updated 29 ноября 2025 - добавлена getCompletionValueForDate (миграция из /modules/habit-tracker/features/habits/utils)
  * @updated 30 ноября 2025 - мигрированы strength и frequency-validation из /features
  * @updated 30 ноября 2025 - удалён useFrequencyModal хук (заменён на атомарное управление через store)
+ * @updated 18 декабря 2025 - добавлены утилиты разрешения конфликтов при синхронизации
  */
 
 // Утилиты фильтрации
@@ -82,3 +83,10 @@ export {
   getSectionColor,
   isSystemSection,
 } from './section-utils';
+
+// Утилиты разрешения конфликтов при синхронизации
+export {
+  resolveHabitConflict,
+  syncHabits,
+  needsSync,
+} from './conflict-resolution';

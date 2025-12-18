@@ -1,15 +1,16 @@
 /**
- * Утилиты для разрешения конфликтов при синхронизации
+ * Утилиты для разрешения конфликтов при синхронизации привычек
  * 
  * Стратегии:
  * - Last Write Wins (LWW) - для настроек привычки (название, цвет, иконка и т.д.)
  * - Merge - для completions, notes, moods (объединение данных с разных устройств)
  * 
- * @module shared/lib/sync/conflictResolution
+ * @module entities/habit/lib/conflict-resolution
  * @created 17 декабря 2025
+ * @updated 18 декабря 2025 - перенесено из shared/lib/sync для соблюдения FSD
  */
 
-import type { Habit } from '@/entities/habit';
+import type { Habit } from '../model/types';
 
 /**
  * Разрешить конфликт между локальной и серверной привычкой

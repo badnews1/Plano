@@ -3,11 +3,10 @@ import type { AppStore } from '../types';
 import { getInitialLanguage } from '@/shared/lib/i18n';
 import { syncSettings, saveSettingsToServer } from '@/entities/user';
 import type { UserSettings } from '@/entities/user';
+import type { Language } from '@/shared/types/language';
 
-/**
- * Поддерживаемые языки приложения
- */
-export type Language = 'en' | 'ru';
+// Реэкспорт типа Language для обратной совместимости
+export type { Language } from '@/shared/types/language';
 
 /**
  * Слайс для управления языком приложения

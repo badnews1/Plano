@@ -98,11 +98,12 @@ let filteredModules = new Set<LogModule>();
 // ========================================
 
 /**
- * Форматирование timestamp
+ * Получает текущую временную метку в формате HH:MM:SS
+ * @returns Временная метка
  */
 const getTimestamp = (): string => {
   const now = new Date();
-  return now.toISOString().substr(11, 8); // HH:MM:SS
+  return now.toISOString().slice(11, 19); // HH:MM:SS
 };
 
 /**

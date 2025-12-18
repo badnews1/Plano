@@ -1,13 +1,31 @@
-import { useEffect, RefObject } from 'react';
+import { useEffect, useRef, RefObject } from 'react';
 
 /**
  * Универсальный хук для определения кликов вне указанного элемента
+ * 
+ * @param ref - Ссылка на элемент, для которого отслеживаются клики снаружи
+ * @param handler - Колбэк, вызываемый при клике вне элемента
+ * @param enabled - Флаг включения/отключения отслеживания (по умолчанию true)
+ * 
+ * @example
+ * ```tsx
+ * const dropdownRef = useRef<HTMLDivElement>(null);
+ * useClickOutside(dropdownRef, () => setIsOpen(false));
+ * ```
+ * 
+ * @remarks
+ * Использует useRef для стабилизации handler, чтобы избежать лишних пересозданий эффекта.
+ * Поддерживает сложную логику с вложенными dropdown и модалами.
  */
 export function useClickOutside(
   ref: RefObject<HTMLElement>,
   handler: () => void,
   enabled: boolean = true
 ) {
+  // Стабилизируем handler через ref, чтобы избежать пересоздания эффекта
+  const handlerRef = useRef(handler);
+  handlerRef.current = handler;
+
   useEffect(() => {
     if (!enabled) return;
 
@@ -60,10 +78,10 @@ export function useClickOutside(
           }
           
           // Это другой dropdown (не вложенный) - закрываем
-          handler();
+          handlerRef.current();
         } else {
           // Клик был вне любого dropdown-content - закрываем
-          handler();
+          handlerRef.current();
         }
       }
     };
@@ -74,5 +92,5 @@ export function useClickOutside(
     return () => {
       document.removeEventListener('mousedown', handleClickOutside, true);
     };
-  }, [ref, handler, enabled]);
+  }, [ref, enabled]); // handler убран из зависимостей
 }

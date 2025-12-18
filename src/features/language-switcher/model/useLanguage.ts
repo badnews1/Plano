@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useHabitsStore } from '@/app/store';
 import { useShallow } from 'zustand/react/shallow';
 import { AuthContext } from '@/app/contexts/AuthContext';
-import type { Language } from '@/app/store/slices/language';
+import type { Language } from '@/shared/types/language';
 
 /**
  * Хук для работы с языком приложения

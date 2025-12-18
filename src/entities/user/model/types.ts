@@ -5,15 +5,12 @@
  * @created 17 декабря 2025
  */
 
+import type { Language } from '@/shared/types/language';
+
 /**
  * Тема приложения
  */
 export type Theme = 'light' | 'dark';
-
-/**
- * Язык приложения
- */
-export type Language = 'ru' | 'en';
 
 /**
  * Настройки пользователя
