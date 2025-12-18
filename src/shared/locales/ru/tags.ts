@@ -15,7 +15,10 @@ export default {
     // Подтверждение удаления
     deleteTagConfirm: "Удалить тег?",
     deleteConfirmTitle: "Удалить тег?",
-    deleteConfirmMessage: "Этот тег используется в {{count}} {{count === 1 ? 'привычке' : 'привычках'}}. При удалении тега он будет удален из всех привычек.",
+    // Множественные формы для deleteConfirmMessage (русский язык: one, few, many)
+    deleteConfirmMessage_one: "Этот тег используется в {{count}} привычке. При удалении тега он будет удалён из этой привычки.",
+    deleteConfirmMessage_few: "Этот тег используется в {{count}} привычках. При удалении тега он будет удалён из всех привычек.",
+    deleteConfirmMessage_many: "Этот тег используется в {{count}} привычках. При удалении тега он будет удалён из всех привычек.",
     deleteConfirmMessageUnused: "Вы уверены, что хотите удалить этот тег?",
     tagUsedIn: "Тег",
     isUsedIn: "используется в",

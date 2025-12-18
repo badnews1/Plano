@@ -332,22 +332,20 @@ const TagButton: React.FC<TagButtonProps> = ({
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{t('tags.deleteConfirmTitle') || 'Удалить тег?'}</AlertDialogTitle>
+            <AlertDialogTitle>{t('tags.deleteConfirmTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
               {usageCount > 0 ? (
-                <>
-                  {t('tags.deleteConfirmMessage', { count: usageCount }) || 
-                    `Этот тег используется в ${usageCount} ${usageCount === 1 ? 'привычке' : 'привычках'}. При удалении тега он будет удален из всех привычек.`}
-                </>
+                // i18next автоматически выберет правильную форму (_one, _few, _many, _other) на основе count
+                t('tags.deleteConfirmMessage', { count: usageCount })
               ) : (
-                t('tags.deleteConfirmMessageUnused') || 'Вы уверены, что хотите удалить этот тег?'
+                t('tags.deleteConfirmMessageUnused')
               )}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{t('common.cancel') || 'Отмена'}</AlertDialogCancel>
+            <AlertDialogCancel>{t('common.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={handleConfirmDelete}>
-              {t('common.delete') || 'Удалить'}
+              {t('common.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

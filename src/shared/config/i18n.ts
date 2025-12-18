@@ -5,40 +5,15 @@
  * @created 16 декабря 2025 - перенесено из app/i18n для соблюдения FSD
  * @updated 17 декабря 2025 - добавлен namespace admin, автоопределение языка браузера
  * @updated 17 декабря 2025 - добавлены namespaces landing и auth для публичных страниц
- * 
- * Поддерживаемые языки:
- * - en (English) - по умолчанию
- * - ru (Русский)
- * 
- * Определение языка:
- * 1. Сохраненный язык в localStorage ('app-language')
- * 2. Язык браузера (navigator.language)
- * 3. Английский по умолчанию
- * 
- * Namespaces:
- * - common: Общие переводы (кнопки, действия, plurals для единиц)
- * - habits: Переводы связанные с привычками
- * - validation: Сообщения валидации форм
- * - stats: Статистика и аналитика
- * - app: Общие элементы приложения (навигация, заголовки)
- * - ui: UI компоненты
- * - tags: Теги и метки
- * - sections: Секции и разделы
- * - units: Единицы измерения и их категории
- * - icons: Названия иконок
- * - vacation: Режим отдыха (периоды каникул)
- * - timer: Таймеры и временные интервалы
- * - admin: Административная панель
- * - landing: Лендинг страница
- * - auth: Страницы авторизации (вход, регистрация)
+ * @updated 18 декабря 2025 - добавлена полная типизация переводов
+ * @updated 18 декабря 2025 - восстановлена конфигурация после ошибок
  */
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getInitialLanguage } from '@/shared/lib/i18n';
-
-// Импорт переводов через Public API (barrel export)
 import {
+  // Английские переводы
   commonEn,
   habitsEn,
   validationEn,
@@ -54,6 +29,7 @@ import {
   adminEn,
   landingEn,
   authEn,
+  // Русские переводы
   commonRu,
   habitsRu,
   validationRu,
@@ -71,56 +47,73 @@ import {
   authRu,
 } from '@/shared/locales';
 
+// Определяем начальный язык
+const initialLanguage = getInitialLanguage();
+
 i18n
-  .use(initReactI18next) // Интеграция с React
+  .use(initReactI18next)
   .init({
     resources: {
       en: {
-        common: commonEn,
+        common: commonEn.common,
         habits: habitsEn,
         validation: validationEn,
-        stats: statsEn,
-        app: appEn,
-        ui: uiEn,
-        tags: tagsEn,
+        stats: statsEn.stats,
+        app: appEn.app,
+        ui: uiEn.ui,
+        tags: tagsEn.tags,
         sections: sectionsEn,
-        units: unitsEn,
-        icons: iconsEn,
+        units: unitsEn.units,
+        icons: iconsEn.icons,
         vacation: vacationEn,
         timer: timerEn,
-        admin: adminEn,
-        landing: landingEn,
-        auth: authEn,
+        admin: adminEn.admin,
+        landing: landingEn.landing,
+        auth: authEn.auth,
       },
       ru: {
-        common: commonRu,
+        common: commonRu.common,
         habits: habitsRu,
         validation: validationRu,
-        stats: statsRu,
-        app: appRu,
-        ui: uiRu,
-        tags: tagsRu,
+        stats: statsRu.stats,
+        app: appRu.app,
+        ui: uiRu.ui,
+        tags: tagsRu.tags,
         sections: sectionsRu,
-        units: unitsRu,
-        icons: iconsRu,
+        units: unitsRu.units,
+        icons: iconsRu.icons,
         vacation: vacationRu,
         timer: timerRu,
-        admin: adminRu,
-        landing: landingRu,
-        auth: authRu,
+        admin: adminRu.admin,
+        landing: landingRu.landing,
+        auth: authRu.auth,
       },
     },
-    lng: getInitialLanguage(), // Автоматически определяется из localStorage или браузера
-    fallbackLng: 'en', // Fallback язык, если перевод не найден
-    ns: ['common', 'habits', 'validation', 'stats', 'app', 'ui', 'tags', 'sections', 'units', 'icons', 'vacation', 'timer', 'admin', 'landing', 'auth'], // Namespaces
-    defaultNS: 'common', // Namespace по умолчанию
-    
+    lng: initialLanguage,
+    fallbackLng: 'en',
+    defaultNS: 'common',
+    ns: [
+      'common',
+      'habits',
+      'validation',
+      'stats',
+      'app',
+      'ui',
+      'tags',
+      'sections',
+      'units',
+      'icons',
+      'vacation',
+      'timer',
+      'admin',
+      'landing',
+      'auth',
+    ],
     interpolation: {
-      escapeValue: false, // React уже экранирует
+      escapeValue: false,
     },
-    
     react: {
-      useSuspense: false, // Отключаем Suspense для простоты
+      useSuspense: false,
     },
   });
 

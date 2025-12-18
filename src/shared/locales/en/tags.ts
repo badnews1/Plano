@@ -15,7 +15,9 @@ export default {
     // Delete confirmation
     deleteTagConfirm: "Delete Tag?",
     deleteConfirmTitle: "Delete Tag?",
-    deleteConfirmMessage: "This tag is used in {{count}} {{count === 1 ? 'habit' : 'habits'}}. Deleting the tag will remove it from all habits.",
+    // Множественные формы для deleteConfirmMessage
+    deleteConfirmMessage_one: "This tag is used in {{count}} habit. Deleting the tag will remove it from this habit.",
+    deleteConfirmMessage_other: "This tag is used in {{count}} habits. Deleting the tag will remove it from all habits.",
     deleteConfirmMessageUnused: "Are you sure you want to delete this tag?",
     tagUsedIn: "Tag",
     isUsedIn: "is used in",

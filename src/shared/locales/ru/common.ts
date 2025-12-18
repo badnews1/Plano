@@ -270,18 +270,7 @@ export default {
     }
   },
   
-  frequency: {
-    daily: "Ежедневно",
-    weekly: "Еженедельно",
-    monthly: "Ежемесячно",
-    custom: "Произвольно",
-    timesPerWeek: "раз в неделю",
-    timesPerMonth: "раз в месяц",
-    specificDays: "Определённые дни",
-    everyNDays: "Каждые N дней",
-    type: "Тип частоты",
-    target: "Цель"
-  },
+  // ⚠️ Секция frequency удалена - используйте habits.frequency вместо этого
   
   notifications: {
     permission: {
@@ -301,7 +290,7 @@ export default {
         habit: "Привычки",
         task: "Задачи",
         finance: "Финансы",
-        event: "обытия",
+        event: "События", // Исправлено: было "обытия"
         other: "Другое"
       },
       

@@ -79,4 +79,4 @@ export default {
     snowflake: "Winter Holiday",
     cloudRain: "Bad Weather",
   },
-};
+} as const;

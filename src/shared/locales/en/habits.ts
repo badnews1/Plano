@@ -16,7 +16,7 @@ export default {
     tags: "Tags",
     type: "Type",
     unit: "Unit",
-    targetValue: "Target",
+    targetValue: "Target value",
     frequency: "Frequency",
     notes: "NOTES",
     addNotes: "Add description...",
@@ -65,6 +65,9 @@ export default {
     currentValue: "Current value",
     targetValue: "Target value"
   },
+  // ⚠️ Секция frequency - глобальный источник переводов для частоты привычек
+  // Используется во всём приложении для настроек частоты выполнения
+  // Ранее дублировалась в common.frequency - теперь единственный источник истины
   frequency: {
     title: "Frequency",
     daily: "Every day",

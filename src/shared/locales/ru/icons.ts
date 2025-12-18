@@ -181,4 +181,4 @@ export default {
     triangle: "Треугольник",
     octagon: "Восьмиугольник",
   },
-};
+} as const;

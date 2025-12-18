@@ -242,18 +242,7 @@ export default {
     }
   },
   
-  frequency: {
-    daily: "Daily",
-    weekly: "Weekly",
-    monthly: "Monthly",
-    custom: "Custom",
-    timesPerWeek: "times per week",
-    timesPerMonth: "times per month",
-    specificDays: "Specific days",
-    everyNDays: "Every N days",
-    type: "Frequency Type",
-    target: "Target"
-  },
+  // ⚠️ Секция frequency удалена - используйте habits.frequency вместо этого
   
   notifications: {
     permission: {
