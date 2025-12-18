@@ -18,6 +18,9 @@
  * @module features/timer/ui/TimerModal
  * @updated 16 декабря 2025
  * @updated 18 декабря 2025 - убрана зависимость от основного store, управление только через useTimerStore
+ * @updated 18 декабря 2025 - удалены антипаттерны onMouseEnter/onMouseLeave для кнопок навигации режимов
+ * @updated 18 декабря 2025 - исправлен magic number maxLength для названия пресета (хардкод 10 → TEXT_LENGTH_LIMITS.timerPresetName.max)
+ * @updated 18 декабря 2025 - исправлен magic number maxLength для заметки (хардкод 500 → TEXT_LENGTH_LIMITS.dayNote.max)
  */
 
 import React, { useState, useRef } from 'react';
@@ -64,6 +67,7 @@ import { useTimerEngine } from '../lib/useTimerEngine';
 import type { TimerMode, PomodoroPreset } from '../model/types';
 import { useHabitsStore } from '@/app/store';
 import { ICON_MAP, SmallFilledCircle } from '@/shared/constants/icons';
+import { TEXT_LENGTH_LIMITS } from '@/shared/constants/validation';
 
 interface TimerModalProps {
   habits: Habit[];
@@ -411,10 +415,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrevMode}
-                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer"
-                    style={{ color: 'var(--text-tertiary)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
+                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer text-text-tertiary hover:text-text-primary"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -430,10 +431,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                   </h2>
                   <button
                     onClick={handleNextMode}
-                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer"
-                    style={{ color: 'var(--text-tertiary)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
+                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer text-text-tertiary hover:text-text-primary"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -514,7 +512,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                         border: '1px dashed var(--border-tertiary)',
                       }}
                     >
-                      <Plus size={14} />
+                      <Plus className="w-3.5 h-3.5" />
                       <span>Custom</span>
                     </button>
                   )}
@@ -531,7 +529,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                       onChange={(e) => setNewPresetName(e.target.value)}
                       variant="secondary"
                       className="w-full"
-                      maxLength={10}
+                      maxLength={TEXT_LENGTH_LIMITS.timerPresetName.max}
                       showCharCount={true}
                       ref={presetNameInputRef}
                       aria-label={t('timer:preset.nameOptional')}
@@ -584,14 +582,14 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                           size="icon"
                           onClick={() => setShowAddPresetForm(false)}
                         >
-                          <X size={16} />
+                          <X className="w-4 h-4" />
                         </Button>
                         <Button
                           variant="default"
                           size="icon"
                           onClick={handleAddPreset}
                         >
-                          <Check size={16} />
+                          <Check className="w-4 h-4" />
                         </Button>
                       </div>
                     </div>
@@ -1225,10 +1223,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handlePrevMode}
-                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer"
-                    style={{ color: 'var(--text-tertiary)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
+                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer text-text-tertiary hover:text-text-primary"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -1244,10 +1239,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                   </h2>
                   <button
                     onClick={handleNextMode}
-                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer"
-                    style={{ color: 'var(--text-tertiary)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
+                    className="p-1 rounded hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer text-text-tertiary hover:text-text-primary"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -1658,7 +1650,7 @@ export function TimerModal({ habits, onCompleteHabit }: TimerModalProps) {
                           placeholder={t('timer:completion.notesPlaceholder')}
                           variant="secondary"
                           className="w-full min-h-[80px]"
-                          maxLength={500}
+                          maxLength={TEXT_LENGTH_LIMITS.dayNote.max}
                           aria-label={t('timer:completion.notes')}
                         />
                       </div>

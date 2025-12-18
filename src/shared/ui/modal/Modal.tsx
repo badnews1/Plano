@@ -34,9 +34,11 @@
  * @updated 12 декабря 2025 - добавлен Modal.FieldTitle для единообразных заголовков полей
  * @updated 14 декабря 2025 - добавлен customContent в Modal.Header для кастомизации содержимого
  * @updated 17 декабря 2025 - добавлена accessibility поддержка (aria-labelledby, aria-describedby, focus trap)
+ * @updated 18 декабря 2025 - исправлена race condition в обработке ESC для вложенных модалок (уникальный ID + проверка верхней модалки)
+ * @updated 18 декабря 2025 - удален хардкод размера иконки (size={20} → className="w-5 h-5")
  */
 
-import React, { useEffect, forwardRef } from 'react';
+import React, { useEffect, forwardRef, useId } from 'react';
 import { createPortal } from 'react-dom';
 import { XIcon } from '@/shared/assets/icons/system';
 import { Separator } from '@/components/ui/separator';
@@ -125,7 +127,7 @@ function getModalContentClasses(size: keyof typeof MODAL_SIZES = 'md'): string {
  * 
  * Возможности:
  * - Управляет z-index уровнями (modal/dialog/nested)
- * - Обрабатывает ESC клавишу для закрытия
+ * - Обрабатывает ESC клавишу для закрытия (только для верхней модалки)
  * - Центрирует содержимое
  * - Создаёт Portal в document.body
  * 
@@ -137,21 +139,40 @@ function ModalRoot({
   onClose,
   className = ''
 }: ModalRootProps) {
-  // Обработка ESC клавиши для закрытия модалки
+  // Генерируем уникальный ID для этой модалки при монтировании
+  const modalId = useId();
+  
+  // 🔥 ИСПРАВЛЕНИЕ: Обработка ESC клавиши только для самой верхней модалки
   useEffect(() => {
     if (!onClose) return;
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        // Останавливаем всплытие события, чтобы не закрывать родительские модалки
-        e.stopPropagation();
-        onClose();
+        // Получаем все открытые модалки в порядке появления в DOM
+        const allModals = document.querySelectorAll('[data-modal="true"]');
+        
+        if (allModals.length === 0) return;
+        
+        // Получаем текущую модалку
+        const currentModal = document.querySelector(`[data-modal-id="${modalId}"]`);
+        
+        if (!currentModal) return;
+        
+        // 🔥 БЕЗОПАСНЫЙ ДОСТУП: проверяем существование последней модалки
+        const lastModal = allModals[allModals.length - 1];
+        
+        // Закрываем только если это самая последняя (верхняя) модалка
+        if (lastModal && currentModal === lastModal) {
+          e.preventDefault();
+          e.stopPropagation();
+          onClose();
+        }
       }
     };
 
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+  }, [onClose, modalId]);
 
   // Получаем z-index стиль в зависимости от уровня
   const zIndexStyle = {
@@ -166,6 +187,7 @@ function ModalRoot({
       style={zIndexStyle}
       data-modal="true" 
       data-modal-level={level}
+      data-modal-id={modalId}
     >
       {children}
     </div>
@@ -380,7 +402,7 @@ const ModalCloseButton = React.memo(function ModalCloseButton({ onClick, classNa
       className={`cursor-pointer text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors ${className}`}
       aria-label={t('ui.close')}
     >
-      <XIcon size={20} aria-hidden="true" />
+      <XIcon className="w-5 h-5" aria-hidden="true" />
     </button>
   );
 });

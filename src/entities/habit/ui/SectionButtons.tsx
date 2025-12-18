@@ -10,6 +10,7 @@
  * 
  * @module entities/habit/ui/SectionButtons
  * @created 8 декабря 2025
+ * @updated 18 декабря 2025 - исправлен magic number maxLength (хардкод 25 → TEXT_LENGTH_LIMITS.tagName.max)
  */
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -22,6 +23,7 @@ import { useTranslatedSectionName } from '@/entities/section';
 import { DEFAULT_SECTIONS_WITH_COLORS } from '@/entities/habit';
 import type { Section } from '@/entities/habit';
 import type { ColorVariant } from '@/shared/constants/colors';
+import { TEXT_LENGTH_LIMITS } from '@/shared/constants/validation';
 
 interface SectionButtonsProps {
   sections: Section[];
@@ -138,7 +140,7 @@ export const SectionButtons: React.FC<SectionButtonsProps> = ({
                   }}
                   className="absolute right-2 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 cursor-pointer text-[var(--text-tertiary)] hover:text-[var(--status-error)]"
                 >
-                  <X size={12} />
+                  <X className="w-3 h-3" />
                 </span>
               )}
             </button>
@@ -151,7 +153,7 @@ export const SectionButtons: React.FC<SectionButtonsProps> = ({
           className="border-dashed border-[var(--border-tertiary)] bg-[var(--bg-tertiary)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
           onClick={() => setShowAddSection(!showAddSection)}
         >
-          <Plus size={14} />
+          <Plus className="w-3.5 h-3.5" />
         </Button>
       </div>
       
@@ -176,7 +178,7 @@ export const SectionButtons: React.FC<SectionButtonsProps> = ({
             placeholder={t('newPlaceholder') || 'Section name'}
             variant="secondary"
             className="flex-1 h-9"
-            maxLength={25}
+            maxLength={TEXT_LENGTH_LIMITS.tagName.max}
             showCharCount={true}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {

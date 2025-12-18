@@ -4,6 +4,8 @@
  * Универсальный график с градиентной заливкой для отображения
  * любых данных в виде Area Chart. Полностью настраиваемый и
  * не зависит от предметной области.
+ * 
+ * @updated 18 декабря 2025 - добавлена безопасная проверка доступа к элементам массива (noUncheckedIndexedAccess совместимость)
  */
 
 import { ResponsiveContainer, AreaChart as RechartsAreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
@@ -87,23 +89,32 @@ export function AreaChart({
       return data;
     }
 
+    // 🔥 БЕЗОПАСНЫЙ ДОСТУП: проверяем существование элементов перед использованием
+    const firstItem = data[0];
+    const lastItem = data[data.length - 1];
+
+    // Если элементы не найдены - возвращаем данные как есть
+    if (!firstItem || !lastItem) {
+      return data;
+    }
+
     // Определяем метки для первой и последней точки
-    const firstLabel = typeof data[0].label === 'number' ? data[0].label : 0;
-    const lastLabel = typeof data[data.length - 1].label === 'number' 
-      ? data[data.length - 1].label 
+    const firstLabel = typeof firstItem.label === 'number' ? firstItem.label : 0;
+    const lastLabel = typeof lastItem.label === 'number' 
+      ? lastItem.label 
       : data.length;
 
     // Возвращаем данные с добавленными точками по краям
     return [
       { 
         label: typeof firstLabel === 'number' ? firstLabel - 1 : 0, 
-        value: data[0].value, // Значение такое же как у первой точки
+        value: firstItem.value, // Значение такое же как у первой точки
         isPadding: true, // Флаг фиктивной точки
       },
       ...data, // Основные данные
       { 
         label: typeof lastLabel === 'number' ? lastLabel + 1 : data.length + 1, 
-        value: data[data.length - 1].value, // Значение такое же как у последней точки
+        value: lastItem.value, // Значение такое же как у последней точки
         isPadding: true, // Флаг фиктивной точки
       },
     ];

@@ -31,3 +31,12 @@ export const formatDate = (date: Date): string => {
   return datePart ?? date.toISOString();
 };
 
+/**
+ * Проверяет, является ли день выходным (суббота или воскресенье)
+ * @param date - объект Date для проверки
+ * @returns true если день выходной (суббота = 6, воскресенье = 0), иначе false
+ */
+export const isWeekend = (date: Date): boolean => {
+  const dayOfWeek = date.getDay();
+  return dayOfWeek === 0 || dayOfWeek === 6;
+};

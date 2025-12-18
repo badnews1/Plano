@@ -555,7 +555,7 @@ export const HabitFormModalTabs: React.FC<HabitFormModalTabsProps> = ({
                             type="button"
                             className="w-full h-[48px] flex items-center gap-3 px-3 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border-tertiary)] hover:bg-[var(--bg-tertiary)] transition-colors cursor-pointer"
                           >
-                            <CalendarIcon size={16} className="text-[var(--text-tertiary)]" />
+                            <CalendarIcon className="w-4 h-4 text-[var(--text-tertiary)]" />
                             <span className="text-[var(--text-primary)] text-sm">
                               {form.startDate 
                                 ? format(new Date(form.startDate), 'PPP', { locale }) 

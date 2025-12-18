@@ -11,6 +11,7 @@
  * @module entities/tag/ui/TagButtonsSelector
  * @created 8 декабря 2025
  * @updated 10 декабря 2025 - добавлена форма создания тега
+ * @updated 18 декабря 2025 - исправлен magic number maxLength (хардкод 25 → TEXT_LENGTH_LIMITS.tagName.max)
  */
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -33,6 +34,7 @@ import { Modal } from '@/shared/ui/modal';
 import { useTranslatedTagName } from '@/entities/tag';
 import type { BaseTag } from '@/entities/tag';
 import type { ColorVariant } from '@/shared/constants/colors';
+import { TEXT_LENGTH_LIMITS } from '@/shared/constants/validation';
 
 interface TagButtonsSelectorProps {
   tags: BaseTag[];
@@ -119,7 +121,7 @@ export const TagButtonsSelector: React.FC<TagButtonsSelectorProps> = ({
       >
         {selectedTags.length === 0 ? (
           <>
-            <Tag size={14} className="text-[var(--text-tertiary)]" />
+            <Tag className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
             <span className="text-[var(--text-tertiary)] text-sm">
               {t('manage.filters.uncategorized') || 'Untagged'}
             </span>
@@ -138,7 +140,7 @@ export const TagButtonsSelector: React.FC<TagButtonsSelectorProps> = ({
                   border: '1px solid transparent'
                 }}
               >
-                <Tag size={10} /> {getTranslatedTagName(tag.name)}
+                <Tag className="w-2.5 h-2.5" /> {getTranslatedTagName(tag.name)}
               </span>
             );
           })
@@ -204,7 +206,7 @@ export const TagButtonsSelector: React.FC<TagButtonsSelectorProps> = ({
               onClick={() => setShowAddTag(true)}
               aria-label="Add new tag"
             >
-              <Plus size={12} />
+              <Plus className="w-3 h-3" />
             </Button>
           </div>
           
@@ -230,7 +232,7 @@ export const TagButtonsSelector: React.FC<TagButtonsSelectorProps> = ({
                 placeholder={t('tags.newTag') || 'New tag'}
                 variant="tertiary"
                 className="flex-1 h-9"
-                maxLength={25}
+                maxLength={TEXT_LENGTH_LIMITS.tagName.max}
                 showCharCount={true}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
@@ -316,7 +318,7 @@ const TagButton: React.FC<TagButtonProps> = ({
           }
         }}
       >
-        <Tag size={12} className="transition-transform duration-200 group-hover:-translate-x-2" />
+        <Tag className="w-3 h-3 transition-transform duration-200 group-hover:-translate-x-2" />
         <span className="transition-transform duration-200 group-hover:-translate-x-2">
           {getTranslatedName(tag.name)}
         </span>
@@ -325,7 +327,7 @@ const TagButton: React.FC<TagButtonProps> = ({
           className="absolute right-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110 cursor-pointer p-0.5 hover:text-[var(--status-error)]"
           aria-label="Delete tag"
         >
-          <X size={12} />
+          <X className="w-3 h-3" />
         </span>
       </span>
       

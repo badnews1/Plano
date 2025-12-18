@@ -79,4 +79,4 @@ export default {
     snowflake: "Зимние каникулы",
     cloudRain: "Плохая погода",
   },
-} as const;
+};

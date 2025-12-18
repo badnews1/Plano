@@ -30,6 +30,7 @@
  * @module shared/ui/section-picker
  * @created 28 ноября 2025
  * @updated 2 декабря 2025 - удалена зависимость от entities (FSD fix)
+ * @updated 18 декабря 2025 - исправлен magic number maxLength (хардкод 10 → использование prop maxLength)
  */
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -314,7 +315,7 @@ export function SectionPicker({
                     }
                   }}
                   placeholder={inputPlaceholder}
-                  maxLength={10}
+                  maxLength={maxLength}
                   className="flex-1"
                 />
                 

@@ -5,9 +5,11 @@
  * 
  * @module shared/ui/calendar-day-header
  * @updated 17 декабря 2025 - добавлена accessibility поддержка (aria-label, role)
+ * @updated 18 декабря 2025 - вынесена функция isWeekend в shared/lib/date
  */
 
 import React from 'react';
+import { isWeekend } from '@/shared/lib/date';
 
 // ============================================================================
 // CalendarWeekdaysRow
@@ -34,12 +36,6 @@ export function CalendarWeekdaysRow({
     display: 'grid',
     gridTemplateColumns: `repeat(${monthDays.length}, 1fr)`,
     width: '100%',
-  };
-
-  // Проверка является ли день выходным (суббота = 6, воскресенье = 0)
-  const isWeekend = (date: Date): boolean => {
-    const dayOfWeek = date.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6;
   };
 
   return (
@@ -101,12 +97,6 @@ export function CalendarDatesRow({ monthDays }: CalendarDatesRowProps) {
     display: 'grid',
     gridTemplateColumns: `repeat(${monthDays.length}, 1fr)`,
     width: '100%',
-  };
-
-  // Проверка является ли день выходным (суббота = 6, воскресенье = 0)
-  const isWeekend = (date: Date): boolean => {
-    const dayOfWeek = date.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6;
   };
 
   return (

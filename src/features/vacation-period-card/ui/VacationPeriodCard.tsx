@@ -2,7 +2,7 @@
  * Карточка периода отдыха
  */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +17,8 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Edit, Trash2, Palmtree } from '@/shared/assets/icons/system';
-import { useHabitsStore, useShallow } from '@/app/store';
+import { useHabitsStore } from '@/app/store';
+import { useShallow } from 'zustand/react/shallow';
 import type { VacationPeriod } from '@/entities/vacation';
 import { getVacationPeriodStatus } from '@/entities/vacation';
 import { VACATION_ICON_MAP } from '@/shared/constants/vacation-icons';
@@ -34,12 +35,18 @@ export function VacationPeriodCard({ period, onEdit }: VacationPeriodCardProps) 
   // Состояние для диалога подтверждения удаления
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   
-  // ⚡ ОПТИМИЗАЦИЯ: мемоизируем фильтрацию + объединяем вызовы store
-  const { habits, deleteVacationPeriod } = useHabitsStore(
+  // ⚡ ОПТИМИЗАЦИЯ: объединяем вызовы store с useShallow
+  const { allHabits, deleteVacationPeriod } = useHabitsStore(
     useShallow((state) => ({
-      habits: state.habits.filter(h => !h.isArchived),
+      allHabits: state.habits, // ✅ Берём массив напрямую
       deleteVacationPeriod: state.deleteVacationPeriod,
     }))
+  );
+  
+  // Мемоизируем фильтрацию привычек
+  const habits = useMemo(
+    () => allHabits.filter(h => !h.isArchived),
+    [allHabits]
   );
   
   // Получаем иконку периода (с fallback на пальму)
@@ -108,7 +115,7 @@ export function VacationPeriodCard({ period, onEdit }: VacationPeriodCardProps) 
             
             {/* Информация о привычках */}
             <div className="mt-4 flex items-center gap-2">
-              {period.applyToAll || period.habitIds.length === habits.filter(h => !h.isArchived).length ? (
+              {period.applyToAll || period.habitIds.length === habits.length ? (
                 <span className="text-xs text-[var(--text-secondary)] flex items-center gap-1">
                   <span 
                     style={{ 
@@ -125,7 +132,7 @@ export function VacationPeriodCard({ period, onEdit }: VacationPeriodCardProps) 
                 </span>
               ) : (
                 <span className="text-xs text-[var(--text-secondary)]">
-                  {t('habitsCountPaused', { count: period.habitIds.length, total: habits.filter(h => !h.isArchived).length })}
+                  {t('habitsCountPaused', { count: period.habitIds.length, total: habits.length })}
                 </span>
               )}
             </div>

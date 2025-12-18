@@ -6,6 +6,7 @@
 export {
   getDaysInMonth,
   formatDate,
+  isWeekend,
 } from './dateUtils';
 
 // Локализованные функции для отображения

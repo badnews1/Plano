@@ -43,13 +43,13 @@ export const HabitTypePickerButtons: React.FC<HabitTypePickerButtonsProps> = ({
       id: 'binary' as HabitType, 
       label: 'Checkbox',
       desc: 'Done / Not done',
-      icon: <Check size={16} /> 
+      icon: <Check className="w-4 h-4" /> 
     },
     { 
       id: 'measurable' as HabitType, 
       label: 'Number',
       desc: 'Track quantity',
-      icon: <Hash size={16} /> 
+      icon: <Hash className="w-4 h-4" /> 
     },
   ];
   

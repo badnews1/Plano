@@ -11,6 +11,7 @@
  * Автоматически управляет цветом иконок через CSS переменные
  * 
  * @module shared/ui/completion-button
+ * @updated 18 декабря 2025 - добавлен отсутствующий вариант 'partial' в statusBackgroundColors и 'measurable' в iconColors
  */
 
 import React from 'react';
@@ -50,6 +51,7 @@ export function CompletionButton({
     completed: 'var(--accent-primary-indigo)',      // Галочка
     skipped: 'var(--bg-secondary)',          // Пауза
     empty: 'var(--border-secondary)',          // Пустой
+    partial: 'transparent',                  // Частично выполнено (прозрачный фон, CircularProgress управляет своими цветами)
     measurable: 'var(--bg-tertiary)',        // Число (фон для measurable)
   };
 
@@ -59,6 +61,7 @@ export function CompletionButton({
     skipped: 'var(--text-secondary)',        // Пауза
     empty: 'white',                          // Иконки белые (стрелочка автопропуска)
     partial: 'var(--text-primary)',          // Основной текст для частичного прогресса
+    measurable: 'var(--text-primary)',       // Текст/числа для measurable состояния
   };
 
   return (

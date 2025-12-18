@@ -22,6 +22,12 @@ export const TEXT_LENGTH_LIMITS = {
     max: 15,
   },
   
+  /** Название пресета таймера */
+  timerPresetName: {
+    min: 0,
+    max: 10,
+  },
+  
   /** Причина периода отдыха */
   vacationReason: {
     min: 1,

@@ -15,6 +15,7 @@
  * @module shared/ui/filter-dropdown
  * @created 29 ноября 2025 - рефакторинг на generic компонент
  * @updated 17 декабря 2025 - добавлена accessibility поддержка (aria-label, aria-expanded, role)
+ * @updated 18 декабря 2025 - удалены антипаттерны onMouseEnter/onMouseLeave, hover-эффекты переведены на CSS
  */
 
 import { useRef } from 'react';
@@ -142,15 +143,9 @@ export function FilterDropdown({
                 style={index > 0 ? { borderColor: 'var(--border-secondary)' } : undefined}
               >
                 <AccordionTrigger 
-                  className="px-4 py-3 text-xs font-medium uppercase tracking-wide hover:no-underline transition-colors"
+                  className="px-4 py-3 text-xs font-medium uppercase tracking-wide hover:no-underline hover:bg-bg-tertiary transition-colors"
                   style={{ 
                     color: 'var(--text-secondary)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '';
                   }}
                 >
                   {section.title}
@@ -161,13 +156,7 @@ export function FilterDropdown({
                       <Label
                         key={option.id}
                         htmlFor={`filter-${section.id}-${option.id}`}
-                        className="px-4 py-2 cursor-pointer transition-colors gap-2"
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = 'var(--bg-tertiary)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = '';
-                        }}
+                        className="px-4 py-2 cursor-pointer hover:bg-bg-tertiary transition-colors gap-2"
                       >
                         <Checkbox
                           id={`filter-${section.id}-${option.id}`}

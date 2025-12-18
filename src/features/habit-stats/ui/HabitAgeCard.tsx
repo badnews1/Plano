@@ -97,7 +97,7 @@ export function HabitAgeCard({ startDate }: HabitAgeCardProps) {
       
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-2">
-          <div className="text-indigo-400"><Calendar size={20} /></div>
+          <div className="text-indigo-400"><Calendar className="w-5 h-5" /></div>
           <span className="text-[10px] font-semibold tracking-widest text-indigo-400/80 uppercase">Habit age</span>
         </div>
         

@@ -2,6 +2,8 @@
  * SpeedometerChart - круговая диаграмма в стиле спидометра
  */
 
+import { useId } from 'react';
+
 interface SpeedometerChartProps {
   /** Прогресс от 0 до 100 */
   progress: number;
@@ -88,7 +90,7 @@ export function SpeedometerChart({
   const startAngle = (360 - arcAngle) / 2 + 90;
   
   // Уникальный ID для градиентов (чтобы несколько компонентов на странице работали)
-  const gradientId = `speedometer-gradient-${size}-${Math.random().toString(36).slice(2, 11)}`;
+  const gradientId = useId();
 
   // Генерация точек по дуге
   const generateDots = (radiusOffset: number, count: number, isOuter: boolean = false) => {

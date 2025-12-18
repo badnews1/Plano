@@ -8,18 +8,15 @@
  * - Добавление/удаление напоминаний
  * - Включение/выключение каждого напоминания
  * - Настройка времени каждого напоминания
- * - Отображение счётчика активных напоминаний с правильным склонением
  * 
  * @module shared/ui/reminder-list
  * Дата создания: 19 ноября 2024
- * Последнее обновление: 30 ноября 2025 - переименование из RemindersManager в ReminderList
+ * Последнее обновление: 18 декабря 2025 - удалены неиспользуемые переменные enabledReminders и enabledCount
  */
 
 import { useTranslation } from 'react-i18next';
 import { Bell, BellOff, XIcon, Plus } from '@/shared/assets/icons/system';
-import { declineReminders } from '@/shared/lib/text';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import type { ReminderItem } from './types';
 
@@ -58,9 +55,6 @@ export const ReminderList: React.FC<ReminderListProps> = ({
   className = '',
 }) => {
   const { t } = useTranslation(['habits', 'common', 'ui']);
-  
-  const enabledReminders = reminders.filter(r => r.enabled);
-  const enabledCount = enabledReminders.length;
 
   return (
     <div className={className}>

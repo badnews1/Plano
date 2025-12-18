@@ -12,6 +12,7 @@
 import { Button } from '@/components/ui/button';
 import { useHabitsStore } from '@/app/store';
 import { toast } from 'sonner';
+import { ArchiveRestore } from '@/shared/assets/icons/system';
 
 interface UnarchiveButtonProps {
   /** ID привычки для разархивации */

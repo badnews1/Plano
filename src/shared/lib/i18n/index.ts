@@ -5,15 +5,3 @@
  */
 
 export { detectBrowserLanguage, getInitialLanguage } from './detectBrowserLanguage';
-
-// Типизированные утилиты для переводов
-export {
-  createTypedTranslate,
-  isValidTranslationKey,
-  isNamespace,
-  NAMESPACES,
-} from './typed-translation';
-
-export type {
-  TranslationKey,
-} from './typed-translation';

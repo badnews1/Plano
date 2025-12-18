@@ -96,7 +96,7 @@ export const HabitRemindersCards: React.FC<HabitRemindersCardsProps> = ({
               key={idx} 
               className="flex items-center gap-3 p-3 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border-tertiary)] group h-[48px]"
             >
-              <Bell size={14} className="text-[var(--accent-secondary-indigo)]" />
+              <Bell className="w-3.5 h-3.5 text-[var(--accent-secondary-indigo)]" />
               <div className="w-[45px]">
                 <Input 
                   type="time"
@@ -113,7 +113,7 @@ export const HabitRemindersCards: React.FC<HabitRemindersCardsProps> = ({
                 onClick={() => onDeleteReminder(r.id)} 
                 className="ml-auto text-[var(--text-tertiary)] hover:text-[var(--status-error)] opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
               >
-                <Trash2 size={14} />
+                <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
           ))}
@@ -125,7 +125,7 @@ export const HabitRemindersCards: React.FC<HabitRemindersCardsProps> = ({
         className="mt-2 w-full border-dashed border-[var(--border-tertiary)] bg-transparent text-[var(--text-tertiary)] hover:text-[var(--accent-secondary-indigo)] rounded-md" 
         onClick={onAddReminder}
       >
-        <Plus size={14} className="mr-2" /> {t('reminders.add') || 'Add Reminder'}
+        <Plus className="w-3.5 h-3.5 mr-2" /> {t('reminders.add') || 'Add Reminder'}
       </Button>
     </div>
   );
